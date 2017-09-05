@@ -1,18 +1,38 @@
-package estacionamento;
+package projeto;
 
 public class Estacionamento {
-
-    public static void main(String[] args) {
-        
-        Carro c[]= new Carro[2];
-        
-        c[0]=new Carro("Celta", "MNZ 9087", 13,40);
-        c[1]=new Carro("Celta", "XJL 5432", 20,10);
-        c[0].setPrioridade(false);
-        c[0].EntrarCarro();
-        
-        
-        
-    }
     
+   
+    private boolean prioridade;
+    private int [] capacidadeVeiculo=new int[10];
+ 
+    
+    public void EntrarVeiculo(){
+        int i=0;
+        if (null==this.getCapacidadeVeiculo()){
+            System.out.println("pode estacionar"+this.capacidadeVeiculo[i]);              
+        }else{
+            System.out.println("não pode estacionar");
+        }
+         i++; 
+    }
+
+    public boolean getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(boolean prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public int[] getCapacidadeVeiculo() {
+        return capacidadeVeiculo;
+    }
+
+    public void setCapacidadeVeiculo(int[] capacidadeVeiculo) {
+        this.capacidadeVeiculo = capacidadeVeiculo;
+    }
+
+   
 }
+
