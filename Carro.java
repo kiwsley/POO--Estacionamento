@@ -1,42 +1,37 @@
-package projeto;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-
+/**
+ *
+ * @author Usuário
+ */
 public class Carro {
-    private String Modelo;
-    private String Placa;
-    private String Cor;
-
-    public Carro(String Modelo, String Placa, String Cor) {
-        this.Modelo = Modelo;
-        this.Placa = Placa;
-        this.Cor = Cor;
+    private String modelo;
+    private String placa;
+    private int ano;
+    private Boolean ePrioritario;
+    
+    public Carro(String modelo, String placa, int ano, Boolean ePrioritario)
+    {
+        this.modelo = modelo;
+        this.ano = ano;
+        this.placa = placa;
+        this.ePrioritario = ePrioritario;
     }
     
-
-    public String getModelo() {
-        return Modelo;
-    }
-
-    public void setModelo(String Modelo) {
-        this.Modelo = Modelo;
-    }
-
     public String getPlaca() {
-        return Placa;
-    }
-
-    public void setPlaca(String Placa) {
-        this.Placa = Placa;
-    }
-
-    public String getCor() {
-        return Cor;
-    }
-
-    public void setCor(String Cor) {
-        this.Cor = Cor;
+        return placa;
     }
     
+    public String getNome(){
+        return this.modelo;
+    }
     
-    
+    public Boolean getPrioridade()
+    {
+        return this.ePrioritario;
+    }
 }
