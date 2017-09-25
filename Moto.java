@@ -8,18 +8,27 @@
  *
  * @author Usuário
  */
-public class Carro extends Automovel{
-
-    public Carro(String modelo, String placa, int ano, Boolean ePrioritario) {
+public class Moto extends Automovel{
+    
+    private int cilindradas;
+    
+    public Moto(String modelo, String placa, int ano, Boolean ePrioritario,int cilindradas) {
         super(modelo, placa, ano, ePrioritario);
+        this.cilindradas = cilindradas;
     }
     
-   /*
+    /*
     * Retorna "Carro" se for carro e "Moto" se for moto.
     */
     @Override
     public String carroOuMoto()
     {
-        return "Carro";
+        return "Moto";
     }
+    
+    public int getCilindradas()
+    {
+        return this.cilindradas;
+    }
+    
 }

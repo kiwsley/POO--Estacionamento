@@ -15,7 +15,7 @@ public class Conta {
     private float taxaFixa;
     private float taxaPorHora;
     private LocalDateTime dataEntrada;
-    private Carro carro;
+    private Automovel carro;
     private boolean aberta;     // Bool para dizer se a conta esta aberta ou fechada
     
     
@@ -35,12 +35,12 @@ public class Conta {
         return meses*taxaPorHora + taxaFixa;
     }
     
-    public Carro getCarro()
+    public Automovel getCarro()
     {
         return this.carro;
     }
     
-    public void abrirConta(LocalDateTime dataEntrada, Carro carro)
+    public void abrirConta(LocalDateTime dataEntrada, Automovel carro)
     {
         this.dataEntrada = dataEntrada;
         this.taxaFixa = 2;                  // Taxa fixa = 2 reais

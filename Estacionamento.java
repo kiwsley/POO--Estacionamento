@@ -15,12 +15,14 @@ public class Estacionamento {
     
     private int capacidadeDeCarros;
     private int nVagasDePrioridade;
-    ArrayList<Conta> contas = new ArrayList<>();
-    ArrayList<Boolean> vagas = new ArrayList<>();   // TRUE se a vaga está ocupada, FALSE caso contrário
-    ArrayList<Boolean> prioridades = new ArrayList<>(); // TRUE se a vaga é prioritária, FALSE caso contrário
+    private Relatorio relatorio;
+    private ArrayList<Conta> contas = new ArrayList<>();
+    private ArrayList<Boolean> vagas = new ArrayList<>();   // TRUE se a vaga está ocupada, FALSE caso contrário
+    private ArrayList<Boolean> prioridades = new ArrayList<>(); // TRUE se a vaga é prioritária, FALSE caso contrário
     
     public Estacionamento(int capacidade, int nVagasDePrioridade)
     {
+        this.relatorio = new Relatorio();
         this.capacidadeDeCarros = capacidade;
         this.nVagasDePrioridade = nVagasDePrioridade;
         int i;
@@ -42,11 +44,11 @@ public class Estacionamento {
     }
     
     // Vaículo entra no estacionamento
-    void entrarVeículo(Carro carro, int vaga)
+    void entrarVeículo(Automovel carro, int vaga)
     {
         
         LocalDateTime dataCadastro = LocalDateTime.now();
-
+        relatorio.adicionarRelatorio(carro, Boolean.TRUE, dataCadastro, vaga, 0);
         contas.get(vaga).abrirConta(dataCadastro, carro);
         vagas.set(vaga, Boolean.TRUE);
         
@@ -56,6 +58,7 @@ public class Estacionamento {
     float sairVeiculo(int vaga)
     {
         float ret = contas.get(vaga).calculaConta(LocalDateTime.now());
+        relatorio.adicionarRelatorio(contas.get(vaga).getCarro(), Boolean.FALSE, LocalDateTime.now(), vaga, ret);
         contas.get(vaga).fecharConta();
         vagas.set(vaga, Boolean.FALSE);
         return ret;
@@ -80,7 +83,7 @@ public class Estacionamento {
     }
     
     // Retorna a vaga que está um determinado carro
-    public int getVagaPorCarro(Carro carro) 
+    public int getVagaPorCarro(Automovel carro) 
     {
         int i;
         for(i=0;i<this.capacidadeDeCarros;i++)
@@ -98,7 +101,7 @@ public class Estacionamento {
         return -1;
     }
     
-    public Carro getCarroPorPlaca(String placa)
+    public Automovel getCarroPorPlaca(String placa)
     {
         int i;
         for(i=0;i<this.capacidadeDeCarros;i++)
@@ -113,8 +116,13 @@ public class Estacionamento {
                 }
             }
         }   
-        System.out.println("Carro com placa "+placa+" não encontado.");
+        System.out.println("Automóvel com placa "+placa+" não encontado.");
         return null;
+    }
+    
+    public Relatorio getRelatorio()
+    {
+        return this.relatorio;
     }
     
     public void listaVagas()
@@ -134,14 +142,31 @@ public class Estacionamento {
                 if(prioridades.get(i))
                 {
                     System.out.print("Vaga com prioridade " + i + ": ");
-                    System.out.println("Tem um carro "+ contas.get(i).getCarro().
-                            getNome() + " com placa " + contas.get(i).getCarro().getPlaca());
+                    if(contas.get(i).getCarro().carroOuMoto().equals("Carro"))
+                    {
+                        System.out.println("Tem um carro "+ contas.get(i).getCarro().
+                                getNome() + " com placa " + contas.get(i).getCarro().getPlaca());
+                    }
+                    else{
+                        Moto moto = (Moto)(contas.get(i).getCarro());
+                        System.out.println("Tem uma moto "+ contas.get(i).getCarro().
+                                getNome() + " "+moto.getCilindradas()+"cc com placa " + contas.get(i).getCarro().getPlaca());
+                    }
                 }
                 else
                 {
                     System.out.print("Vaga sem prioridade " + i + ": ");
-                    System.out.println("Tem um carro "+ contas.get(i).getCarro().
-                            getNome() + " com placa " + contas.get(i).getCarro().getPlaca());
+                    
+                    if(contas.get(i).getCarro().carroOuMoto().equals("Carro"))
+                    {
+                        System.out.println("Tem um carro "+ contas.get(i).getCarro().
+                                getNome() + " com placa " + contas.get(i).getCarro().getPlaca());
+                    }
+                    else{
+                        Moto moto = (Moto)(contas.get(i).getCarro());
+                        System.out.println("Tem uma moto "+ contas.get(i).getCarro().
+                                getNome() + " "+moto.getCilindradas()+"cc com placa " + contas.get(i).getCarro().getPlaca());
+                    }
                 }
             }
         }

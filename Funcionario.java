@@ -20,7 +20,7 @@ public class Funcionario {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        ArrayList<Carro> carros = new ArrayList<>();
+        ArrayList<Automovel> automoveis = new ArrayList<>();
         
         Funcionario pedro = new Funcionario("Pedro");
         
@@ -42,6 +42,7 @@ public class Funcionario {
         String placa;
         Boolean prioridade;
         int ano;
+        int cilindradas;
         
         int VAGAS = 5;
         int paraIdosos = 2;
@@ -50,8 +51,8 @@ public class Funcionario {
         
         while(input != 0)
         {
-            System.out.println("\nBem vindo ao estacionamento Pare Aqui. Nosso estacionamento dispões de "+ VAGAS + 
-                    " vagas e "+paraIdosos+" delas são prioritárias.\nDigite uma opção:\n1-Estacionar Carro\n2-Retirar Carro\n3-Listar Vagas\n0-Sair\n\nSua opção:");
+            System.out.println("\nBem vindo ao estacionamento Pare Aqui. Nosso estacionamento dispõe de "+ VAGAS + 
+                    " vagas e "+paraIdosos+" delas são prioritárias.\nDigite uma opção:\n1-Estacionar Carro\n2-Estacionar Moto\n3-Retirar um Automóvel\n4-Listar Vagas\n5-Listar Relatório de Entradas e Saídas\n0-Sair\n\nSua opção:");
             input=ler.nextInt();
             
             switch(input)
@@ -78,16 +79,45 @@ public class Funcionario {
                     pedro.estacionaCarro(carro, pareAqui);
                     break;
                 case 2:
+                    
+                    ler.nextLine();// Esvazia Buffer
+                    System.out.println("Digite o modelo da Moto: ");
+                    nome = ler.nextLine();
+                    System.out.println("Digite a placa da Moto: ");
+                    placa = ler.nextLine();
+                    System.out.println("A moto é de idoso (0 para não e 1 para sim)?: ");
+                    ano = ler.nextInt();
+                    if (ano == 1)
+                    {
+                        prioridade = true;
+                    }
+                    else prioridade = false;
+                    ler.nextLine();// Esvazia Buffer
+                    System.out.println("Digite o ano da Moto: ");
+                    ano = ler.nextInt();
+                    ler.nextLine();// Esvazia Buffer
+                    
+                    
+                    System.out.println("Digite as cilindradas da Moto (exemplo: 150, 125, etc...): ");
+                    cilindradas = ler.nextInt();
+                    
+                    Moto moto = new Moto(nome, placa, ano, prioridade, cilindradas);
+                    pedro.estacionaCarro(moto, pareAqui);
+                    break;
+                case 3:
                     ler.nextLine(); // Esvazia Buffer
-                    System.out.println("Digite a placa do carro que deseja retirar: ");
+                    System.out.println("Digite a placa do carro ou moto que deseja retirar: ");
                     placa = ler.nextLine();
                     
-                    Carro carroParaRetirar = pareAqui.getCarroPorPlaca(placa);
+                    Automovel carroParaRetirar = pareAqui.getCarroPorPlaca(placa);
                     
                     pedro.retiraCarro(carroParaRetirar, pareAqui);
                     break;
-                case 3:
+                case 4:
                     pareAqui.listaVagas();
+                    break;
+                case 5:
+                    pareAqui.getRelatorio().listarRelatorios();
             }
         }
         System.out.println("\nObrigado!");
@@ -99,7 +129,7 @@ public class Funcionario {
     }
     
     // Tenta estacionar o carro, se tiver sucesso retorna TRUE;
-    public Boolean estacionaCarro(Carro carro, Estacionamento estacionamento) 
+    public Boolean estacionaCarro(Automovel carro, Estacionamento estacionamento) 
     {
         int i;
         // Verifica se o carro é de idoso
@@ -148,7 +178,7 @@ public class Funcionario {
     }
     
     // retira carro e Retorna valor do estacionamento, -1 caso o carro não seja encontrado
-    public float retiraCarro(Carro carro, Estacionamento estacionamento)
+    public float retiraCarro(Automovel carro, Estacionamento estacionamento)
     {
         int vaga = estacionamento.getVagaPorCarro(carro);
         if(vaga!=-1)
